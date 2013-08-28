@@ -1,0 +1,1178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="Destinations">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="Destination">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DestinationId" type="xs:string"/>
+						<xs:element name="DestinationName" type="xs:string" minOccurs="0"/>
+						<xs:element name="DestinationType" type="xs:string" minOccurs="0"/>
+						<xs:element name="IATACode" type="xs:string" minOccurs="0"/>
+						<xs:element name="Price" type="Price" minOccurs="0"/>
+						<xs:element name="Enabled" type="xs:boolean" minOccurs="0"/>
+					</xs:sequence>
+					<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+					<xs:attribute name="Main" type="xs:boolean"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Price">
+		<xs:simpleContent>
+			<xs:extension base="xs:decimal">
+				<xs:attribute name="CurrencyCode" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="Categories">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="Category">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CategoryId" type="xs:string" minOccurs="0"/>
+						<xs:element name="CategoryName" type="xs:string" minOccurs="0"/>
+						<xs:element name="Price" type="Price" minOccurs="0"/>
+						<xs:element name="Enabled" type="xs:boolean" minOccurs="0"/>
+					</xs:sequence>
+					<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Packages">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="Package" type="Package"/>
+		</xs:sequence>
+		<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+		<xs:attribute name="LanguageCode" type="xs:string" use="required"/>
+		<xs:attribute name="CurrencyCode" type="xs:string" use="required"/>
+		<xs:attribute name="TotalItems" type="xs:int"/>
+	</xs:complexType>
+	<xs:complexType name="Hotels">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="Hotel">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="HotelId" type="xs:string" minOccurs="0"/>
+						<xs:element name="HotelName" type="xs:string" minOccurs="0"/>
+						<xs:element name="HotelRating" type="xs:string" minOccurs="0"/>
+						<xs:element name="GeoPosition" type="GeoPosition" minOccurs="0"/>
+						<xs:element name="Destinations" type="Destinations" minOccurs="0"/>
+						<xs:element name="HotelAddress" type="xs:string" minOccurs="0"/>
+						<xs:element name="HotelDescription" type="xs:string" minOccurs="0"/>
+						<xs:element name="Amenities" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Amenity" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="AmenityId" type="xs:string"/>
+												<xs:element name="AmenityName" type="xs:string"/>
+												<xs:element name="AmenityIcon" type="xs:string" minOccurs="0"/>
+											</xs:sequence>
+											<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+											<xs:attribute name="Favourite" type="xs:boolean"/>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="HotelGallery" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Images" type="Images"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Rooms" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="Room" type="RoomType"/>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Nights" type="xs:int" minOccurs="0"/>
+					</xs:sequence>
+					<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Flights">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="Flight">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FlightId" type="xs:string" minOccurs="0"/>
+						<xs:element name="CarrierId" type="xs:string" minOccurs="0"/>
+						<xs:element name="CarrierName" type="xs:string" minOccurs="0"/>
+						<xs:element name="FlightGroup" type="xs:int" minOccurs="0"/>
+						<xs:element name="DepartureDestination" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Destinations" type="Destinations"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="ArrivalDestination" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Destinations" type="Destinations"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="FlightDuration" type="xs:time" minOccurs="0"/>
+						<xs:element name="ArrivalTime" type="xs:time" minOccurs="0"/>
+						<xs:element name="DepartureTime" type="xs:time" minOccurs="0"/>
+						<xs:element name="StopDuration" type="xs:time" minOccurs="0"/>
+						<xs:element name="FlightSegments" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="FlightSegment">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="CarrierId" type="xs:string"/>
+												<xs:element name="CarrierName" type="xs:string"/>
+												<xs:element name="FlightGroup" type="xs:int" minOccurs="0"/>
+												<xs:element name="DepartureDestination" minOccurs="0">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Destinations" type="Destinations"/>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="ArrivalDestination" minOccurs="0">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Destinations" type="Destinations"/>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="FlightDuration" type="xs:time" minOccurs="0"/>
+												<xs:element name="ArrivalTime" type="xs:time" minOccurs="0"/>
+												<xs:element name="DepartureTime" type="xs:time" minOccurs="0"/>
+												<xs:element name="StopDuration" type="xs:time" minOccurs="0"/>
+											</xs:sequence>
+											<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Extras">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="Extra">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ExtraId" type="xs:string"/>
+						<xs:element name="ExtraName" type="xs:string"/>
+						<xs:element name="ExtraDescription" type="xs:string"/>
+					</xs:sequence>
+					<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="GeoPosition">
+		<xs:sequence>
+			<xs:element name="Coordinates" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Latitude" type="xs:double"/>
+						<xs:element name="Longitude" type="xs:double"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Destinations" type="Destinations" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Package">
+		<xs:sequence>
+			<xs:element name="PackageId" type="xs:string" minOccurs="0"/>
+			<xs:element name="PackageName" type="xs:string" minOccurs="0"/>
+			<xs:element name="Categories" type="Categories" minOccurs="0"/>
+			<xs:element name="PackageImage" type="xs:string" minOccurs="0"/>
+			<xs:element name="ProductTypes" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="ProductType">
+							<xs:complexType>
+								<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Price" type="Price" minOccurs="0"/>
+			<xs:element name="Destinations" type="Destinations" minOccurs="0"/>
+			<xs:element name="PackageDepartureDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="PackageLength" type="xs:string" minOccurs="0"/>
+			<xs:element name="Days" type="xs:int" minOccurs="0" maxOccurs="1"></xs:element>
+			<xs:element name="Nights" type="xs:integer" minOccurs="0"/>
+			<xs:element name="Products" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="Hotels" type="Hotels" minOccurs="0"/>
+						<xs:element name="Flights" type="Flights" minOccurs="0"/>
+						<xs:element name="Extras" type="Extras" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PackageDescription" type="xs:string" minOccurs="0"/>
+			<xs:element name="PackageGallery" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Images" type="Images" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Passengers" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="Passenger" type="Person"/>
+					</xs:sequence>
+					<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OtherDescription" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ClusterDescription" type="xs:string" minOccurs="0"/>
+						<xs:element name="MapDescription" type="xs:string" minOccurs="0"/>
+						<xs:element name="PackageSubtitle" type="xs:string" minOccurs="0"/>
+						<xs:element name="PackageIntroduction" type="xs:string" minOccurs="0"/>
+						<xs:element name="PackageDetails" type="xs:string" minOccurs="0"/>
+						<xs:element name="LegalTitle" type="xs:string" minOccurs="0"/>
+						<xs:element name="LegalDescription" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Rooms" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Nodo utilizado para cargar las habitaciones por paquete ("Combo") </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="Room" type="RoomType"/>
+					</xs:sequence>
+					<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="EnabledDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="DisabledDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="Enabled" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+		<xs:attribute name="IsGroup" type="xs:boolean"/>
+	</xs:complexType>
+	<xs:complexType name="Images">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="Image">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ImageThumb" type="xs:string" minOccurs="0"/>
+						<xs:element name="ImageOriginal" type="xs:string"/>
+						<xs:element name="ImageTooltip" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+					<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="AVTNotifications">
+		<xs:annotation>
+			<xs:documentation>Colección de notificaciones para AVT</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Notification" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="AVTNotification">
+							<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+							<xs:attribute name="PackageId" type="xs:int"/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="AVTNotification">
+		<xs:annotation>
+			<xs:documentation>Notificación para AVT</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="NotificationId" type="xs:string"/>
+			<xs:element name="NotificationType" type="xs:string" minOccurs="0"/>
+			<xs:element name="NotificationMessage" type="xs:string"/>
+			<xs:element name="NotificationDetailedMessage" type="xs:string" minOccurs="0"/>
+			<xs:element name="NotificationTime" type="xs:dateTime" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SortField">
+		<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+		<xs:attribute name="SortType" type="xs:string" use="required"/>
+		<xs:attribute name="SortFieldName" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="SortingCriteria">
+		<xs:sequence>
+			<xs:element name="SortField" type="SortField" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Pagination">
+		<xs:sequence>
+			<xs:element name="FirstItem" type="xs:int" minOccurs="0"/>
+			<xs:element name="CurrentPage" type="xs:int"/>
+			<xs:element name="ItemPerPage" type="xs:int"/>
+			<xs:element name="TotalItems" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Responset">
+		<xs:sequence>
+			<xs:element name="Pagination" type="Pagination" minOccurs="0"/>
+			<xs:element name="SortingCriteria" type="SortingCriteria" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GeneralParameters">
+		<xs:annotation>
+			<xs:documentation>Contiene la seleccion de idioma y moneda por parte del usuario</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="PreferedLanguage" type="GeneralParametersLanguage"/>
+			<xs:element name="PreferedCurrency" type="GeneralParametersCurrency"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GeneralParametersLanguage">
+		<xs:annotation>
+			<xs:documentation>Nodo PreferedLanguage del nodo GeneralParameters</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="LanguageCode" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="GeneralParametersCurrency">
+		<xs:annotation>
+			<xs:documentation>Nodo PreferedCurrency del nodo GeneralParameters</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="CurrencyCode" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="RoomType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+				<xs:attribute name="RoomID" type="xs:string" use="required"/>
+				<xs:attribute name="Type" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="Person">
+		<xs:sequence>
+			<xs:element name="PersonNames" type="xs:string" minOccurs="0"/>
+			<xs:element name="BirthDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="Gender" type="xs:string" minOccurs="0"/>
+			<xs:element name="Age" type="xs:int" minOccurs="0"/>
+			<xs:element name="CountryOfResidence" type="xs:string" minOccurs="0"/>
+			<xs:element name="Nationality" type="xs:string" minOccurs="0"/>
+			<xs:element name="Email" type="xs:string" minOccurs="0"/>
+			<xs:element name="Address" type="xs:string" minOccurs="0"/>
+			<xs:element name="TelephoneNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="ExtraInfoDetail" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+		<xs:attribute name="AgeType" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="GetParametersRQ">
+		<xs:annotation>
+			<xs:documentation>Se obtienen los parámetros de búsqueda utilizados en el buscador de paquetes</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence maxOccurs="4">
+						<xs:element name="Destinations" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="DestinationId">
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="xs:string">
+													<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Months" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="Month">
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="xs:int">
+													<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Categories" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="CategoryId">
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="xs:string">
+													<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="RangeTimes" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="RangeId">
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="xs:string">
+													<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetParametersRS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="GetParametersRQ" minOccurs="0"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence maxOccurs="5">
+						<xs:element name="Destinations" type="Destinations" minOccurs="0"/>
+						<xs:element name="Months" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="Month">
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="xs:int">
+													<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Categories" type="Categories" minOccurs="0"/>
+						<xs:element name="RangeTimes" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="RangeTime">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="RangeId" type="xs:string"/>
+												<xs:element name="RangeValue" type="xs:string"/>
+											</xs:sequence>
+											<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="PackagesCount" type="xs:int"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetHomeModulesRQ">
+		<xs:annotation>
+			<xs:documentation>Se obtienen los diferentes módulos utilizados en la Home de paquetes</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Parameter">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="DestinationsCount" type="xs:int"/>
+									<xs:element name="CategoriesCount" type="xs:int"/>
+									<xs:element name="PackagesCount" type="xs:int"/>
+								</xs:sequence>
+								<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetHomeModulesRS">
+		<xs:sequence minOccurs="0" maxOccurs="6">
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="GetHomeModulesRQ" minOccurs="0"/>
+			<xs:element name="Destinations" type="Destinations" minOccurs="0"/>
+			<xs:element name="Categories" type="Categories" minOccurs="0"/>
+			<xs:element name="Packages" type="Packages" minOccurs="0"/>
+			<xs:element name="Banners" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="Banner">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="BannerImage" type="xs:string"/>
+									<xs:element name="CategoryId" type="xs:string" minOccurs="0"/>
+									<xs:element name="PackageId" type="xs:string" minOccurs="0"/>
+									<xs:element name="URL" type="xs:string" minOccurs="0"/>
+								</xs:sequence>
+								<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PackagesSearchAvailabilityRQ">
+		<xs:annotation>
+			<xs:documentation>Búsqueda de disponibilidad de paquetes</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters" minOccurs="0"/>
+			<xs:element name="Responset" type="Responset" minOccurs="0"/>
+			<xs:element name="Parameters" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence maxOccurs="5">
+						<xs:element name="Destinations" type="Destinations" minOccurs="0"/>
+						<xs:element name="Months" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="Month">
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="xs:int">
+													<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Categories" type="Categories" minOccurs="0"/>
+						<xs:element name="RangeTimes" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="RangeId">
+										<xs:complexType>
+											<xs:simpleContent>
+												<xs:extension base="xs:string">
+													<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+												</xs:extension>
+											</xs:simpleContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Passengers">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="Passenger" type="Person"/>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="MapSearch" type="xs:boolean"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PackagesSearchAvailabilityRS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="PackagesSearchAvailabilityRQ" minOccurs="0"/>
+			<xs:element name="Packages" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="Packages"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetPackageInfoRQ">
+		<xs:annotation>
+			<xs:documentation>Se obtiene la información detallada de un paquete</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PackageId" type="xs:string" minOccurs="0"/>
+						<xs:element name="PackageName" type="xs:string" minOccurs="0"/>
+						<xs:element name="PackageDepartureDate" type="xs:date"/>
+						<xs:element name="Passengers">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="Passenger" type="Person"/>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Room" type="RoomType" minOccurs="0"/>
+						<xs:element name="IsRateUpdate" type="xs:boolean" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetPackageInfoRS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="GetPackageInfoRQ" minOccurs="0"/>
+			<xs:element name="Package" type="Package" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetOtherPackagesRQ">
+		<xs:annotation>
+			<xs:documentation>Se obtiene un listado de paquetes de interés para la pantalla de detalle de paquete</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PackagesCount" type="xs:int"/>
+						<xs:element name="PackageId" type="xs:string"/>
+						<xs:element name="Passengers">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="Passenger" type="Person"/>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetOtherPackagesRS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="GetOtherPackagesRQ" minOccurs="0"/>
+			<xs:element name="Packages">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="Package" type="Package"/>
+					</xs:sequence>
+					<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetCalendarRQ">
+		<xs:annotation>
+			<xs:documentation>Se obtienen las fechas de salida y precios de un paquete</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PackageId" type="xs:string"/>
+						<xs:element name="Passangers">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="Passanger" type="Person"/>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetCalendarRS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="GetCalendarRQ" minOccurs="0"/>
+			<xs:element name="Dates">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="Date" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Price" type="Price"/>
+									<xs:element name="Value" type="xs:date"/>
+								</xs:sequence>
+								<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PackageInvBlockRQ">
+		<xs:annotation>
+			<xs:documentation>Mensaje para realizar el bloqueo del cupo de un paquete</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Passengers">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="Passenger" type="Person"/>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Package" type="Package"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PackageInvBlockRS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="PackageInvBlockRQ" minOccurs="0"/>
+			<xs:element name="Details" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="InvBlockId" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BookingPackageRQ">
+		<xs:annotation>
+			<xs:documentation>Se obtiene la información detallada de un paquete</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="InvBlockId" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BookingPackageRS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="BookingPackageRQ" minOccurs="0"/>
+			<xs:element name="Details">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="BookingReference" type="xs:string"/>
+						<xs:element name="BookingState" type="xs:string"/>
+						<xs:element name="Package" type="Package"/>
+						<xs:element name="Passengers">
+							<xs:complexType>
+								<xs:sequence maxOccurs="unbounded">
+									<xs:element name="Passenger" type="Person"/>
+								</xs:sequence>
+								<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Action">
+		<xs:simpleContent>
+			<xs:extension base="xs:decimal">
+				<xs:attribute name="ActionCode" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>Se indica si es una alta, baja, modificación o consulta</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="OnDelete" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Al eliminar se indica si se eliminará: un registro, los seleccionados o todos</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="ResponseDataType" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Se indica si la resupuesta debe incluir los registros habilitados, deshabilitados o todos.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="RatesQuotas">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="RateQuota">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PackageDepartureDate" type="xs:date" minOccurs="0"/>
+						<xs:element name="RoomType" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Se indica al tipo de habitación (combo) al cual aplicará la tarifa.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="PassengerType" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Se indica si la tarifa es para: 1 Pax, 2 Pax, 3 Pax, Family Plan 2+1 o Family Plan 2+2</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Quota" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Cupo de la tarifa</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Price" type="Price" minOccurs="0"/>
+						<xs:element name="Tax" type="xs:int" minOccurs="0"/>
+					</xs:sequence>
+					<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Banners">
+		<xs:sequence>
+			<xs:element name="Banner">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="BannerId" type="xs:string"/>
+						<xs:element name="Name" type="xs:string"/>
+						<xs:element name="Images" type="Images"/>
+						<xs:element name="URL" type="xs:string" minOccurs="0"/>
+						<xs:element name="EnabledDate" type="xs:date" minOccurs="0"/>
+						<xs:element name="DisabledDate" type="xs:date" minOccurs="0"/>
+						<xs:element name="Enabled" type="xs:boolean" minOccurs="0"/>
+					</xs:sequence>
+					<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+					<xs:attribute name="BannerType" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Se indica si es: Banner de home, Banner pastilla o del Carrousel</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="Order" type="xs:int"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="PackageCRUD_RQ">
+		<xs:annotation>
+			<xs:documentation>Mensaje para el alta, baja, modificación o consulta de Paquetes</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Action">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="Action"/>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Packages" type="Packages"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PackageCRUD_RS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="PackageCRUD_RQ" minOccurs="0"/>
+			<xs:element name="Details">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ActionState" type="xs:string"/>
+						<xs:element name="Packages" type="Packages"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HotelCRUD_RQ">
+		<xs:annotation>
+			<xs:documentation>Mensaje para el alta, baja, modificación o consulta de Hoteles</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Action" type="Action"/>
+						<xs:element name="PackageId" type="xs:string" minOccurs="0"/>
+						<xs:element name="Hotels" type="Hotels"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="HotelCRUD_RS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="HotelCRUD_RQ" minOccurs="0"/>
+			<xs:element name="Details">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ActionState" type="xs:string"/>
+						<xs:element name="Hotels" type="Hotels"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightCRUD_RQ">
+		<xs:annotation>
+			<xs:documentation>Mensaje para el alta, baja, modificación o consulta de Vuelos</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Action" type="Action"/>
+						<xs:element name="PackageId" type="xs:string" minOccurs="0"/>
+						<xs:element name="Flights" type="Flights"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FlightCRUD_RS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="FlightCRUD_RQ" minOccurs="0"/>
+			<xs:element name="Details">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ActionState" type="xs:string"/>
+						<xs:element name="Flights" type="Flights"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RateQuotaCRUD_RQ">
+		<xs:annotation>
+			<xs:documentation>Mensaje para el alta, baja, modificación o consulta de Tarifas y Cupos</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Action" type="Action"/>
+						<xs:element name="PackageID" type="xs:string" minOccurs="0"/>
+						<xs:element name="RatesQuotas" type="RatesQuotas"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RateQuotaCRUD_RS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="RateQuotaCRUD_RQ" minOccurs="0"/>
+			<xs:element name="Details">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ActionState" type="xs:string"/>
+						<xs:element name="RatesQuotas" type="RatesQuotas"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CategoryCRUD_RQ">
+		<xs:annotation>
+			<xs:documentation>Mensaje para el alta, baja, modificación o consulta de Categorías</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Action" type="Action"/>
+						<xs:element name="Categories" type="Categories"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CategoryCRUD_RS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="CategoryCRUD_RQ" minOccurs="0"/>
+			<xs:element name="Details">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ActionState" type="xs:string"/>
+						<xs:element name="Categories" type="Categories"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DestinationCRUD_RQ">
+		<xs:annotation>
+			<xs:documentation>Mensaje para el alta, baja, modificación o consulta de Destinos</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Action" type="Action"/>
+						<xs:element name="Destinations" type="Destinations"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DestinationCRUD_RS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="DestinationCRUD_RQ" minOccurs="0"/>
+			<xs:element name="Details">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ActionState" type="xs:string"/>
+						<xs:element name="Destinations" type="Destinations"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BannerCRUD_RQ">
+		<xs:annotation>
+			<xs:documentation>Mensaje para el alta, baja, modificación o consulta de Banners</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Action" type="Action"/>
+						<xs:element name="Banners" type="Banners"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BannerCRUD_RS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="BannerCRUD_RQ" minOccurs="0"/>
+			<xs:element name="Details">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ActionState" type="xs:string"/>
+						<xs:element name="Banners" type="Banners"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ItemsQueryRQ">
+		<xs:sequence>
+			<xs:element name="GeneralParameters" type="GeneralParameters"/>
+			<xs:element name="Filters">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="Filter">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Entity" type="xs:string"/>
+									<xs:element name="Description" type="xs:string" minOccurs="0"/>
+									<xs:element name="Value" type="xs:string" minOccurs="0"/>
+								</xs:sequence>
+								<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ItemsQueryRS">
+		<xs:sequence>
+			<xs:element name="Notifications" type="AVTNotifications" minOccurs="0"/>
+			<xs:element name="Echo" type="ItemsQueryRQ" minOccurs="0"/>
+			<xs:element name="Items" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="Item">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ItemId" type="xs:string"/>
+									<xs:element name="Description" type="xs:string"/>
+								</xs:sequence>
+								<xs:attribute name="Sequence" type="xs:unsignedInt" use="required"/>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="ItemsCount" type="xs:int" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

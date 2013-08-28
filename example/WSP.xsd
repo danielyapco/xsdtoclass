@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="ComplexTypes.xsd"/>
+	<xs:element name="GetParametersRQ" type="GetParametersRQ"/>
+	<xs:element name="GetParametersRS" type="GetParametersRS"/>
+	<xs:element name="GetHomeModulesRQ" type="GetHomeModulesRQ"/>
+	<xs:element name="GetHomeModulesRS" type="GetHomeModulesRS"/>
+	<xs:element name="PackagesSearchAvailabilityRQ" type="PackagesSearchAvailabilityRQ"/>
+	<xs:element name="PackagesSearchAvailabilityRS" type="PackagesSearchAvailabilityRS"/>
+	<xs:element name="GetPackageInfoRQ" type="GetPackageInfoRQ"/>
+	<xs:element name="GetPackageInfoRS" type="GetPackageInfoRS"/>
+	<xs:element name="GetOtherPackagesRQ" type="GetOtherPackagesRQ"/>
+	<xs:element name="GetOtherPackagesRS" type="GetOtherPackagesRS"/>
+	<xs:element name="GetCalendarRQ" type="GetCalendarRQ"/>
+	<xs:element name="GetCalendarRS" type="GetCalendarRS"/>
+	<xs:element name="PackageInvBlockRQ" type="PackageInvBlockRQ"/>
+	<xs:element name="PackageInvBlockRS" type="PackageInvBlockRS"/>
+	<xs:element name="BookingPackageRQ" type="BookingPackageRQ"/>
+	<xs:element name="BookingPackageRS" type="BookingPackageRS"/>
+	<xs:element name="ItemsQueryRQ" type="ItemsQueryRQ"/>
+	<xs:element name="ItemsQueryRS" type="ItemsQueryRS"/>
+</xs:schema>
