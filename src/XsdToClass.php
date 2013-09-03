@@ -9,9 +9,11 @@ namespace src;
 
 require_once(__DIR__."/exceptions/XsdToClassException.php");
 require_once(__DIR__."/Constants.php");
+require_once(__DIR__."/factory/ParseFactory.php");
 
 use src\exceptions\XsdToClassException;
 use src\Constants;
+use src\factory\ParseFactory;
 
 class XsdToClass
 {
@@ -29,14 +31,11 @@ class XsdToClass
         }
     }
 
-    public function createFileClass($className, $elements){
+    public function createFileClass($elements){
         foreach($elements as $element){
-            switch ($element->nodeName) {
-                case Constants::COMPLEX:
-                    die(var_dump($element));
-                break;
-                default:
-            }
+            $parse = ParseFactory::factory($element);
+            $parse->setFolder($this->folder.DIRECTORY_SEPARATOR."/class");
+            $parse->parse();
         }
     }
 
@@ -54,19 +53,8 @@ class XsdToClass
                 }
             }
 
-            $nodes = array();
             $elements = $this->xsd->xpath('//xs:schema/descendant::*');
-
-            foreach($elements as $element){
-                $obj = new \stdClass();
-                $obj->nodeName = $element->getName();
-                $obj->name = (string) $element->attributes()->name;
-                $obj->type = (string) $element->attributes()->type;
-                $obj->xml = $element;
-                $nodes[] = $obj;
-            }
-
-            $this->createFileClass($this->xsd->getName(), $nodes);
+            $this->createFileClass($elements);
 
 
         } catch(\Exception $e){

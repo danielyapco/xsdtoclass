@@ -9,11 +9,13 @@ namespace src;
 
 class Constants
 {
-    const COMPLEX = 'complexType';
+    const COMPLEX_TYPE = 'complexType';
     const SEQUENCE = 'sequence';
     const ELEMENT = 'element';
     const SIMPLE = 'simpleContent';
     const ATTRIBUTE = 'attribute';
     const EXTENSION = 'extension';
-
+    const COMPLEX_CONTENT = 'ComplexContent';
+    const ANNOTATION = 'Annotation';
+    const DOCUMENTATION = 'Documentation';
 }
