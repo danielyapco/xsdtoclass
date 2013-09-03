@@ -8,6 +8,9 @@
  */
 namespace src\factory;
 
+require_once ("ClassCreator.php");
+require_once (__DIR__."/../Constants.php");
+
 abstract class ParseAbstract
 {
     protected $node;
