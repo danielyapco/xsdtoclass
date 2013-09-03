@@ -9,6 +9,8 @@ namespace src\factory;
 
 require_once(__DIR__."/../exceptions/XsdToClassException.php");
 
+use src\exceptions\XsdToClassException;
+
 class ParseFactory
 {
     public static function factory(\SimpleXMLElement $node){

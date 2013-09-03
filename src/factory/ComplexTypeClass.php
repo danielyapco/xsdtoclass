@@ -30,12 +30,15 @@ class ComplexTypeClass extends ParseAbstract implements ParseInterface
                     $obj = new \stdClass();
                     $obj->name = (string) $element->attributes()->getName();
                     $obj->value = "array()";
+
+                    $child = current($element->xpath('xs:element'));
+                    $obj->type = (string) $child->attributes()->name;
+
                     $attributes[] = $obj;
                 break;
             }
         }
         $creator->create($this->folder, $class, $attributes);
-        die(var_dump("aca"));
-
+        die(var_dump("fin"));
     }
 }
